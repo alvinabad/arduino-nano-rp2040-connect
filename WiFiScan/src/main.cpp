@@ -16,40 +16,11 @@
 
 #include <Arduino.h>
 #include <SPI.h>
-#include <WiFi.h>
+#include <WiFiNINA.h>
 
-void setup() {
-  //Initialize serial and wait for port to open:
-  Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
-
-  // check for the WiFi module:
-  if (WiFi.status() == WL_NO_MODULE) {
-    Serial.println("Communication with WiFi module failed!");
-    // don't continue
-    while (true);
-  }
-
-  String fv = WiFi.firmwareVersion();
-  if (fv < WIFI_FIRMWARE_LATEST_VERSION) {
-    Serial.println("Please upgrade the firmware");
-  }
-
-  // print your MAC address:
-  byte mac[6];
-  WiFi.macAddress(mac);
-  Serial.print("MAC: ");
-  printMacAddress(mac);
-}
-
-void loop() {
-  // scan for existing networks:
-  Serial.println("Scanning available networks...");
-  listNetworks();
-  delay(10000);
-}
+void listNetworks();
+void printEncryptionType(int thisType);
+void printMacAddress(byte mac[]);
 
 void listNetworks() {
   // scan for nearby networks:
@@ -102,7 +73,6 @@ void printEncryptionType(int thisType) {
   }
 }
 
-
 void printMacAddress(byte mac[]) {
   for (int i = 5; i >= 0; i--) {
     if (mac[i] < 16) {
@@ -115,3 +85,37 @@ void printMacAddress(byte mac[]) {
   }
   Serial.println();
 }
+
+void setup() {
+  //Initialize serial and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // check for the WiFi module:
+  if (WiFi.status() == WL_NO_MODULE) {
+    Serial.println("Communication with WiFi module failed!");
+    // don't continue
+    while (true);
+  }
+
+  String fv = WiFi.firmwareVersion();
+  if (fv < WIFI_FIRMWARE_LATEST_VERSION) {
+    Serial.println("Please upgrade the firmware");
+  }
+
+  // print your MAC address:
+  byte mac[6];
+  WiFi.macAddress(mac);
+  Serial.print("MAC: ");
+  printMacAddress(mac);
+}
+
+void loop() {
+  // scan for existing networks:
+  Serial.println("Scanning available networks...");
+  listNetworks();
+  delay(10000);
+}
+
