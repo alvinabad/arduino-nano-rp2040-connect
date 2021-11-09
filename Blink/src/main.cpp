@@ -27,11 +27,11 @@
  ******************************************************************************/
 
 /*
-  Blink
+  Blink Built-in LED and RGB LED
 */
 
 #include <Arduino.h>
-#include <WiFiNINA.h>
+#include <SPI.h>
 
 #define DELAY           500
 
@@ -52,28 +52,21 @@ void setup() {
 }
 
 void loop() {
-    Serial.print("LED_BUILTIN ON: ");
-    Serial.println(LED_BUILTIN);
+    Serial.println("Blinking LEDs...");
 
     digitalWrite(LED_BUILTIN, HIGH);
     delay(DELAY);
-  
-    Serial.print("LED_BUILTIN OFF: ");
-    Serial.println(LED_BUILTIN);
-
     digitalWrite(LED_BUILTIN, LOW);
+
     digitalWrite(LEDR, HIGH);
     delay(DELAY);
-
-    digitalWrite(LED_BUILTIN, HIGH);
     digitalWrite(LEDR, LOW);
+
     digitalWrite(LEDG, HIGH);
     delay(DELAY);
-
-    digitalWrite(LED_BUILTIN, LOW);
     digitalWrite(LEDG, LOW);
+
     digitalWrite(LEDB, HIGH);
     delay(DELAY);
-
     digitalWrite(LEDB, LOW);
 }
