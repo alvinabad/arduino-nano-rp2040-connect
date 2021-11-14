@@ -22,9 +22,11 @@
 void setup() {
   //Initialize serial and wait for port to open:
   Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+  delay(2000);
+
+  //while (!Serial) {
+  //  ; // wait for serial port to connect. Needed for native USB port only
+  //}
 
   // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE) {
@@ -43,12 +45,20 @@ void setup() {
   WiFi.macAddress(mac);
   Serial.print("MAC: ");
   printMacAddress(mac);
+
+  // initialize LEDB
+  pinMode(LEDB, OUTPUT);
 }
 
 void loop() {
+  digitalWrite(LEDB, HIGH);
+
   // scan for existing networks:
   Serial.println("Scanning available networks...");
   listNetworks();
-  delay(10000);
+  delay(8000);
+
+  digitalWrite(LEDB, LOW);
+  delay(2000);
 }
 
