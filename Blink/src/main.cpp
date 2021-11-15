@@ -33,7 +33,7 @@
 #include <Arduino.h>
 #include <SPI.h>
 
-#define DELAY           500
+#define DELAY           200
 
 void blink();
 
